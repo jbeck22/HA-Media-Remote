@@ -1,0 +1,165 @@
+remote_command:
+  alias: Remote Command
+  fields:
+    command:
+      description: The Command to send to the remote
+      example: up
+  sequence:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_select.media_cabinet
+              state: Master Apple TV
+          sequence:
+            - service: remote.send_command
+              target:
+                entity_id: remote.bedroom
+              data:
+                command: "{{ command }}"
+      default: []
+  mode: single
+remote_arrow_up:
+  alias: Remote Arrow Up
+  sequence:
+    - service: script.remote_command
+      data:
+        command: up
+  mode: single
+
+remote_arrow_down:
+  alias: Remote Arrow Down
+  sequence:
+    - service: script.remote_command
+      data:
+        command: down
+  mode: single
+
+remote_arrow_right:
+  alias: Remote Arrow Right
+  sequence:
+    - service: script.remote_command
+      data:
+        command: right
+  mode: single
+
+remote_arrow_left:
+  alias: Remote Arrow Left
+  sequence:
+    - service: script.remote_command
+      data:
+        command: left
+  mode: single
+
+remote_top_menu:
+  alias: Remote Top Menu
+  sequence:
+    - service: script.remote_command
+      data:
+        command: top_menu
+  mode: single
+
+remote_home:
+  alias: Remote Home
+  sequence:
+    - service: script.remote_command
+      data:
+        command: home
+  mode: single
+
+remote_select:
+  alias: Remote select
+  sequence:
+    - service: script.remote_command
+      data:
+        command: select
+  mode: single
+
+remote_wakeup:
+  alias: wakeup1
+  sequence:
+    - service: script.remote_command
+      data:
+        command: wakeup
+  mode: single
+
+remote_menu:
+  alias: Remote menu
+  sequence:
+    - service: script.remote_command
+      data:
+        command: menu
+  mode: single
+  
+master_appletv_disney:
+  alias: Select Disney
+  sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.bedroom
+      data:
+        delay_secs: 1.5
+        command:
+          - top_menu
+          - home
+          - right
+          - right
+          - right
+          - select
+    - service: input_select.select_option
+      entity_id: input_select.media_cabinet
+      data:
+        option: "Disney"
+
+master_appletv_netflix:
+  alias: Select Netflix
+  sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.bedroom
+      data:
+        delay_secs: 1.5
+        command:
+          - top_menu
+          - home
+          - right
+          - select
+    - service: input_select.select_option
+      entity_id: input_select.media_cabinet
+      data:
+        option: "Netflix"
+
+master_appletv_plex:
+  alias: Select Plex
+  sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.bedroom
+      data:
+        delay_secs: 1.5
+        command:
+          - top_menu
+          - home
+          - select
+    - service: input_select.select_option
+      entity_id: input_select.media_cabinet
+      data:
+        option: "Plex"
+
+master_appletv_iptv:
+  alias: Select IPTV
+  sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.bedroom
+      data:
+        delay_secs: 1.5
+        command:
+          - top_menu
+          - home
+          - right
+          - right
+          - select
+    - service: input_select.select_option
+      entity_id: input_select.media_cabinet
+      data:
+        option: "IPTV"
